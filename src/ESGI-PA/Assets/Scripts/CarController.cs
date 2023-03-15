@@ -41,6 +41,8 @@ public class CarController : MonoBehaviour
     private float carSmooth = 0.75f;
     private bool usingBonus = false;
 
+    private Ray[] disabledRays;
+
     private event Action<CarStats> useBonus;
     /*private bool isBoosting;
     private float boostTimer;
@@ -50,9 +52,6 @@ public class CarController : MonoBehaviour
     private float speed;
     void Start()
     {
-        /*Stats.bonus = new string[2];
-        Stats.bonus[0] = "Fire";
-        Stats.bonus[1] = "Boost";*/
         
     }
 
@@ -83,9 +82,11 @@ public class CarController : MonoBehaviour
     {
             rigidbody.AddForce(Vector3.down * Stats.weight, ForceMode.Acceleration);
         isGrounded = Physics.Raycast(new Ray(transform.position + new Vector3(0,0,0.5f), -Stats.vehicle.up), out _ground, 2f);
-        canRotateInAir = Physics.Raycast(new Ray(transform.position + new Vector3(0,0,0.5f), -Stats.vehicle.up), out _, 10f);
+        canRotateInAir = Physics.Raycast(new Ray(transform.position , -Stats.vehicle.up), out _, 10f);
+        
         if (isGrounded)
         {
+            Debug.Log("Is grounded");
             //int boostMultiplier = isBoosting ? Stats.boostMultiplier : 1;
             rigidbody.AddForce(Stats.vehicle.forward * (speed * Time.deltaTime * SPEED_MULTIPLIER));
             //rigidbody.AddRelativeForce(new Vector3(0,0 , playerOutput.y * SPEED_MULTIPLIER * 
@@ -100,6 +101,14 @@ public class CarController : MonoBehaviour
             transform.Rotate(-Vector3.forward * (input.x * 2));
             transform.Rotate(-Vector3.right * (input.y * 2));
             rigidbody.angularVelocity = Vector3.zero;
+        }
+        else
+        {
+            if (!isGrounded && Mathf.Abs(rigidbody.velocity.y) <= 0.001)
+            {
+                Debug.Log("Unable to move");
+                transform.rotation = Quaternion.Euler(0,transform.rotation.y,0);
+            }
         }
     }
 

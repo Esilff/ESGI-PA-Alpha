@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class gameloop : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class gameloop : MonoBehaviour
             }
             else
             {
+                SceneManager.LoadScene("menufin");
                 Debug.Log("end of the game");
                 isFinished = true;
             }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class menufin : MonoBehaviour
+public class MenuController : MonoBehaviour
 {
       public void RestartGame()
     {

@@ -1,8 +1,24 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class MenuController : MonoBehaviour
 {
+	public RectTransform mainMenu;
+	public RectTransform gameConfigMenu;
+
+
+	public void ToMainMenu()
+	{
+		gameConfigMenu.gameObject.SetActive(false);
+		mainMenu.gameObject.SetActive(true);
+	}
+	public void PrepareGame()
+	{
+		mainMenu.gameObject.SetActive(false);
+		gameConfigMenu.gameObject.SetActive(true);
+	}
+	
       public void RestartGame()
     {
 		Debug.Log("Restart");

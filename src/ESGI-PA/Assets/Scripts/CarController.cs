@@ -29,7 +29,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private CarStats Stats;
     [SerializeField] private PlayerInput _input;
     [SerializeField] private Rigidbody rigidbody;
-    
+
+    [SerializeField] private float drift_cap = 10f;
     
     
     
@@ -42,7 +43,7 @@ public class CarController : MonoBehaviour
     private bool usingBonus = false;
 
     private Ray[] disabledRays;
-
+    private float driftDirection;
     private event Action<CarStats> useBonus;
     /*private bool isBoosting;
     private float boostTimer;
@@ -52,7 +53,7 @@ public class CarController : MonoBehaviour
     private float speed;
     void Start()
     {
-        
+        CameraBehavior.setTarget(transform);
     }
 
     private void Awake()
@@ -80,18 +81,19 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-            rigidbody.AddForce(Vector3.down * Stats.weight, ForceMode.Acceleration);
-        isGrounded = Physics.Raycast(new Ray(transform.position + new Vector3(0,0,0.5f), -Stats.vehicle.up), out _ground, 2f);
+        rigidbody.AddForce(Vector3.down * Stats.weight, ForceMode.Acceleration);
+        isGrounded = Physics.Raycast(new Ray(transform.position + new Vector3(0,0,0.5f), -Stats.vehicle.up), out _ground, 1f);
         canRotateInAir = Physics.Raycast(new Ray(transform.position , -Stats.vehicle.up), out _, 10f);
         
         if (isGrounded)
         {
-            Debug.Log("Is grounded");
-            //int boostMultiplier = isBoosting ? Stats.boostMultiplier : 1;
             rigidbody.AddForce(Stats.vehicle.forward * (speed * Time.deltaTime * SPEED_MULTIPLIER));
-            //rigidbody.AddRelativeForce(new Vector3(0,0 , playerOutput.y * SPEED_MULTIPLIER * 
-             //                                            ((playerOutput.y > 0) ? Stats.acceleration : Stats.backAcceleration) * Time.deltaTime * boostMultiplier));
-            transform.Rotate(Vector3.up * (ROTATE_MULTIPLIER * input.x * Stats.turnStrength * Time.deltaTime * (isDrifting?Stats.driftStrength:1) * Math.Min(rigidbody.velocity.magnitude, 1)));
+            
+            if (rigidbody.velocity.magnitude > drift_cap && isDrifting)
+            {
+                Debug.Log("isDrifting");
+                OnDriftBehavior();
+            } else OffDriftBehavior();
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.FromToRotation(transform.up, _ground.normal) * transform.rotation, carSmooth);
             if (input == Vector2.zero) rigidbody.angularVelocity = Vector3.zero;
         }
@@ -140,5 +142,23 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         Stats.acceleration = originalAcceleration;
         Stats.turnStrength = originalTurnStrength;
+    }
+
+    private void OffDriftBehavior()
+    {
+        driftDirection = 0;
+        transform.Rotate(Vector3.up * (ROTATE_MULTIPLIER * input.x * Stats.turnStrength * Time.deltaTime * Math.Min(rigidbody.velocity.magnitude, 1)));
+    }
+
+    private void OnDriftBehavior()
+    {
+        if (driftDirection == 0)
+        {
+            driftDirection = input.x;
+            transform.Rotate(0, driftDirection > 0.5f ? 45 : -45, 0);
+
+        }
+        
+        
     }
 }

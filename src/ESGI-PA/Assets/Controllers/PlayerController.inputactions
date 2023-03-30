@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Boost",
+                    "name": "Bonus",
                     "type": "Button",
                     "id": "9285e8bd-09bc-4ecf-867a-3fa4e613ad46",
                     "expectedControlType": "Button",
@@ -182,7 +182,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Boost",
+                    "action": "Bonus",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -193,7 +193,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "default",
-                    "action": "Boost",
+                    "action": "Bonus",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

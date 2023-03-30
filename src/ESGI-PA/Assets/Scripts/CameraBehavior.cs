@@ -14,9 +14,9 @@ public class CameraBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        camera.position = target.position + offset;
+        /*camera.position = target.position + offset;
         camera.LookAt(target);
-        camera.rotation = Quaternion.Slerp(camera.rotation, target.rotation, cameraSpeed);
+        camera.rotation = Quaternion.Slerp(camera.rotation, target.rotation, cameraSpeed);*/
     }
 
     private void FixedUpdate()

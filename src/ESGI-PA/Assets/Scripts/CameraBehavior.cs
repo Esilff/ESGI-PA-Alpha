@@ -3,6 +3,7 @@ using UnityEngine;
 public class CameraBehavior : MonoBehaviour
 {
     private static Transform target;
+    public static bool inCar;
     [SerializeField] private Transform camera;
 
     [SerializeField] private Vector3 offset, position;
@@ -21,7 +22,17 @@ public class CameraBehavior : MonoBehaviour
         //if (Physics.Raycast(camera.position, -camera.up, 2f)) offset.y = 1;
     }*/
 
+    private void FixedUpdate()
+    {
+        if (!inCar) MoveCamera();
+    }
+    
     private void Update()
+    {
+        if (inCar) MoveCamera();
+    }
+
+    private void MoveCamera()
     {
         position = Vector3.Lerp(position, target.position + (target.forward * offset.z) + Vector3.up * offset.y, lerpSpeed * Time.deltaTime);
         camera.rotation = Quaternion.Lerp(camera.rotation, Quaternion.LookRotation(target.position - camera.position), lerpSpeed * Time.deltaTime);

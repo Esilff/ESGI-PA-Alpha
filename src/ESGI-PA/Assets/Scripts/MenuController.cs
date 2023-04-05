@@ -1,12 +1,22 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class MenuController : MonoBehaviour
 {
 	public RectTransform mainMenu;
 	public RectTransform gameConfigMenu;
+	public RawImage[] playerImages;
 
+	private void Start()
+	{
+		foreach (var image in playerImages)
+		{
+			image.color = Color.gray;
+		}
+	}
 
 	public void ToMainMenu()
 	{

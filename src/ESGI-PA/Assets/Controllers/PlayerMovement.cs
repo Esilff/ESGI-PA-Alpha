@@ -18,12 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject car;
 
     private bool canDash = true;
-
-    private void Awake()
-    {
-        CameraBehavior.setTarget(transform);
-    }
-
+    
     void FixedUpdate()
     {
         rb.AddForce(Vector3.down * weight, ForceMode.Acceleration);
@@ -67,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
             Destroy(gameObject);
             other.GetComponent<BonusBox>().IsTaken = true;
             GameObject newController = Instantiate(car, transform.position + Vector3.forward * 10 + Vector3.up, Quaternion.identity);
-            CameraBehavior.setTarget(newController.transform);
         }
     }
 

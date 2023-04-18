@@ -10,8 +10,11 @@ public class MenuController : MonoBehaviour
 	public RectTransform gameConfigMenu;
 	public RawImage[] playerImages;
 
+	public bool canEditPlayers;
+	
 	private void Start()
 	{
+		canEditPlayers = false;
 		foreach (var image in playerImages)
 		{
 			image.color = Color.gray;
@@ -20,11 +23,13 @@ public class MenuController : MonoBehaviour
 
 	public void ToMainMenu()
 	{
+		canEditPlayers = false;
 		gameConfigMenu.gameObject.SetActive(false);
 		mainMenu.gameObject.SetActive(true);
 	}
 	public void PrepareGame()
 	{
+		canEditPlayers = true;
 		mainMenu.gameObject.SetActive(false);
 		gameConfigMenu.gameObject.SetActive(true);
 	}

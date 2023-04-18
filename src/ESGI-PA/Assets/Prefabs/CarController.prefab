@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7694355314988995836}
   - component: {fileID: 482012439325425663}
-  - component: {fileID: 3127533909190189857}
+  - component: {fileID: 1221055912717582946}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -52,7 +52,7 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 1
     y: 0
     width: 1
     height: 1
@@ -76,14 +76,22 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &3127533909190189857
-AudioListener:
+--- !u!114 &1221055912717582946
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913946375569490593}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0e440a039417b45ba4ff26bd75f8c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 6849222192345552559}
+  camera: {fileID: 7694355314988995836}
+  offset: {x: 0, y: 1, z: -9}
+  cameraSpeed: 0
 --- !u!1 &4255013421377181949
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +332,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Vehicle
   m_SplitScreenIndex: -1

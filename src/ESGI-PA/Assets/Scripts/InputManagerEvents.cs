@@ -5,50 +5,106 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Object = System.Object;
+
 
 public class InputManagerEvents : MonoBehaviour
 {
+    private const int MAX_DEVICES = 4;
     [SerializeField] private PlayerInputManager manager;
 
     [SerializeField] private RaceConfig raceConfig;
 
     [SerializeField] private MenuController menu;
-    // Start is called before the first frame update
-    private int gamepadCount = 0;
-    private int previousCount = 0;
+    
+    private bool isKeyboardActive = false;
+
+    private List<InputDevice> activeDevices = new List<InputDevice>();
+    private Keyboard keyboard;
+
     void Start()
     {
-        
+        keyboard = InputSystem.GetDevice<Keyboard>();
+    }
+    private void Update()
+    {
+        if (menu.canEditPlayers)
+        {
+            detectDevices();
+            updateUI();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void detectDevices()
     {
-        //manager.JoinPlayer(manager.playerCount, manager.playerCount, "default", Gamepad.all.ToArray());
-        /*Debug.Log("Gamepad count : " + gamepadCount);
-        Debug.Log("Player count : " + manager.playerCount);*/
-        //Debug.Log("Gamepads : " + Gamepad.all.ToArray()[0]);
-        if (gamepadCount != Gamepad.all.Count)
+        detectKeyboard();
+        detectGamepads();
+    }
+
+    private void detectKeyboard()
+    {
+        if (keyboard.anyKey.isPressed && !keyboard.backspaceKey.isPressed && !isKeyboardActive && activeDevices.Count < MAX_DEVICES)
         {
-            previousCount = gamepadCount;
-            gamepadCount = Gamepad.all.Count;
-            if (Gamepad.all.Count < previousCount)
+            isKeyboardActive = true;
+            activeDevices.Add(keyboard);
+        }
+        else if (keyboard.backspaceKey.isPressed && isKeyboardActive)
+        {
+            isKeyboardActive = false;
+            activeDevices.Remove(keyboard);
+        }
+    }
+
+    private void detectGamepads()
+    {
+        //On regarde tous les gamepads dispo, si parmi l'un de ces gamepads, l'une des touches est jouée, on active le gamepad
+        Gamepad[] gamepads = Gamepad.all.ToArray();
+        for (var i = 0; i < gamepads.Length; i++)
+        {
+            if (gamepads[i].buttonSouth.isPressed && !activeDevices.Contains(gamepads[i]) && activeDevices.Count < MAX_DEVICES)
             {
-                /*Debug.Log("Removing controller");
-                Debug.Log("Count at removing : " + previousCount);*/
-                menu.playerImages[previousCount - 1].color = Color.gray;
+                activeDevices.Add(gamepads[i]);
+            }
+        }
+        foreach (var activeDevice in activeDevices)
+        {
+            if (activeDevice is Gamepad)
+            {
+                Gamepad device = (Gamepad)activeDevice;
+                if (!Gamepad.all.ToArray().Contains(device) || device.buttonEast.isPressed)
+                {
+                    activeDevices.Remove(device);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void updateUI()
+    {
+        for (var i = 0; i < 4; i++)
+        {
+            if (i < activeDevices.Count)
+            {
+                if (activeDevices[i] is Keyboard)
+                {
+                    menu.playerImages[i].color = new Color(0.8f,0.8f,0.8f,1.0f);
+                }
+                else
+                {
+                    menu.playerImages[i].color = Color.white;
+                }
+                
             }
             else
             {
-                /*Debug.Log("Adding controller");
-                Debug.Log("Count at adding : " + (gamepadCount - 1));*/
-                menu.playerImages[gamepadCount - 1].color = Color.white;
+                menu.playerImages[i].color = Color.grey;
             }
         }
     }
 
     private void OnDestroy()
     {
-        raceConfig.gamepads = Gamepad.all.ToArray();
+        raceConfig.devices = activeDevices;
     }
 }

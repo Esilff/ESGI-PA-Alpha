@@ -52,7 +52,7 @@ public class CarController : MonoBehaviour
     private float speed;
     void Start()
     {
-        
+        CameraBehavior.inCar = true;
     }
 
     private void Awake()

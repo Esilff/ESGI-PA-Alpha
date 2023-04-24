@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [Serializable]
 public struct CarStats
@@ -29,10 +30,10 @@ public class CarController : MonoBehaviour
     [SerializeField] private CarStats Stats;
     [SerializeField] private PlayerInput _input;
     [SerializeField] private Rigidbody rigidbody;
-    
-    
-    
-    
+    public float maxHealth = 100f;
+    public float currentHealth;
+    public Slider healthBar;
+
     private Vector2 input = Vector2.zero;
     private bool isGrounded;
     private bool canRotateInAir;
@@ -42,6 +43,7 @@ public class CarController : MonoBehaviour
     private bool usingBonus = false;
 
     private Ray[] disabledRays;
+    public GameObject playerPrefab;
 
     private event Action<CarStats> useBonus;
     /*private bool isBoosting;
@@ -53,6 +55,9 @@ public class CarController : MonoBehaviour
     void Start()
     {
         CameraBehavior.inCar = true;
+        currentHealth = maxHealth;
+        //healthBar.maxValue = maxHealth;
+        //healthBar.value = currentHealth;
     }
 
     private void Awake()
@@ -125,6 +130,11 @@ public class CarController : MonoBehaviour
             Debug.Log("Is a bonus : True" );
             useBonus += Bonus.Instance.getBonus();
         }
+        else if (other.CompareTag("Projectile"))
+        {
+            Debug.Log("Hit by projectile hjdhzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+            TakeDamage(100f);
+        }
     }	
     public void StartBoost(float duration)
     {
@@ -140,5 +150,20 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         Stats.acceleration = originalAcceleration;
         Stats.turnStrength = originalTurnStrength;
+    }
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        //healthBar.value = currentHealth;
+
+        if (currentHealth <= 0f)
+        {
+            Die();
+        }
+    }
+
+    private void Die(){
+        Instantiate(playerPrefab, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 }

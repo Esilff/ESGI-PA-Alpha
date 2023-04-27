@@ -88,10 +88,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0e440a039417b45ba4ff26bd75f8c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 6849222192345552559}
   camera: {fileID: 7694355314988995836}
-  offset: {x: 0, y: 1, z: -9}
+  offset: {x: 0, y: 3, z: -9}
+  position: {x: 0, y: 0, z: 0}
   cameraSpeed: 0
+  lerpSpeed: 0
+  target: {fileID: 6849222192345552559}
 --- !u!1 &4255013421377181949
 GameObject:
   m_ObjectHideFlags: 0

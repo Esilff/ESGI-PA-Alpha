@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour
@@ -8,7 +9,10 @@ public class CameraBehavior : MonoBehaviour
     [SerializeField] private Vector3 offset, position;
 
     [SerializeField] private float cameraSpeed, lerpSpeed;
+
+    [SerializeField] private Transform target;
     // Start is called before the first frame update
+    public static bool inCar;
     void Start()
     {
         camera.position = target.position + offset;
@@ -22,8 +26,11 @@ public class CameraBehavior : MonoBehaviour
     {
         //if (Physics.Raycast(camera.position, -camera.up, 2f)) offset.y = 1;
     }*/
+    private void FixedUpdate()
+    {
+        if (!inCar) MoveCamera();
+    }
 
-    
     private void Update()
     {
         if (inCar) MoveCamera();

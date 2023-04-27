@@ -8,6 +8,7 @@ public class MenuController : MonoBehaviour
 {
 	public RectTransform mainMenu;
 	public RectTransform gameConfigMenu;
+	public RectTransform optionsMenu;
 	public RawImage[] playerImages;
 
 	public bool canEditPlayers;
@@ -25,6 +26,18 @@ public class MenuController : MonoBehaviour
 	{
 		canEditPlayers = false;
 		gameConfigMenu.gameObject.SetActive(false);
+		mainMenu.gameObject.SetActive(true);
+	}
+
+	public void ToOptions()
+	{
+		mainMenu.gameObject.SetActive(false);
+		optionsMenu.gameObject.SetActive(true);
+	}
+
+	public void ExitOptions()
+	{
+		optionsMenu.gameObject.SetActive(false);
 		mainMenu.gameObject.SetActive(true);
 	}
 	public void PrepareGame()

@@ -11,15 +11,14 @@ using Object = System.Object;
 public class InputManagerEvents : MonoBehaviour
 {
     private const int MAX_DEVICES = 4;
-    [SerializeField] private PlayerInputManager manager;
 
     [SerializeField] private RaceConfig raceConfig;
 
     [SerializeField] private MenuController menu;
     
-    private bool isKeyboardActive = false;
+    private bool isKeyboardActive;
 
-    private List<InputDevice> activeDevices = new List<InputDevice>();
+    private List<InputDevice> activeDevices = new();
     private Keyboard keyboard;
 
     void Start()

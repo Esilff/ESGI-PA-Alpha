@@ -54,7 +54,7 @@ public class RaceLoader : MonoBehaviour
     {
         for (var i = 0; i < config.devices.Count; i++)
         {
-            Debug.Log("Device " + i + " : " + config.devices[i]);
+            //Debug.Log("Device " + i + " : " + config.devices[i]);
         }
     }
 

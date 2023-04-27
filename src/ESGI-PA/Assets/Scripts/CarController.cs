@@ -26,6 +26,8 @@ public class CarController : MonoBehaviour
 {
     private const int SPEED_MULTIPLIER = 100000;
     private const int ROTATE_MULTIPLIER = 100;
+    private bool isShieldActivated = false;
+    private Coroutine shieldCoroutine;
 
     [SerializeField] private CarStats Stats;
     [SerializeField] private PlayerInput _input;
@@ -91,7 +93,6 @@ public class CarController : MonoBehaviour
         
         if (isGrounded)
         {
-            Debug.Log("Is grounded");
             //int boostMultiplier = isBoosting ? Stats.boostMultiplier : 1;
             rigidbody.AddForce(Stats.vehicle.forward * (speed * Time.deltaTime * SPEED_MULTIPLIER));
             //rigidbody.AddRelativeForce(new Vector3(0,0 , playerOutput.y * SPEED_MULTIPLIER * 
@@ -111,7 +112,6 @@ public class CarController : MonoBehaviour
         {
             if (!isGrounded && Mathf.Abs(rigidbody.velocity.y) <= 0.001)
             {
-                Debug.Log("Unable to move");
                 transform.rotation = Quaternion.Euler(0,transform.rotation.y,0);
             }
         }
@@ -140,6 +140,7 @@ public class CarController : MonoBehaviour
     {
         StartCoroutine(Boost(duration));
     }
+    
 
     private IEnumerator Boost(float duration)
     {
@@ -151,6 +152,7 @@ public class CarController : MonoBehaviour
         Stats.acceleration = originalAcceleration;
         Stats.turnStrength = originalTurnStrength;
     }
+
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
@@ -166,4 +168,71 @@ public class CarController : MonoBehaviour
         Instantiate(playerPrefab, transform.position, transform.rotation);
         Destroy(gameObject);
     }
+    
+    public void ActivateShield(float duration)
+    {
+        if (isShieldActivated) return; // already activated
+        isShieldActivated = true;
+        shieldCoroutine = StartCoroutine(Shield(duration));
+    }
+
+
+    public IEnumerator Jump(float jumpDuration = 1f, float jumpForce = 500f, float gravityScale = 1f)
+    {
+        Debug.Log("Jump activated");
+
+        Rigidbody vehicleRigidbody = Stats.vehicle.GetComponent<Rigidbody>();
+
+        // Désactiver la gravité pour simuler un saut
+        vehicleRigidbody.useGravity = false;
+        vehicleRigidbody.velocity = Vector3.zero;
+        vehicleRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        float elapsed = 0f;
+        while (elapsed < jumpDuration)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Réactiver la gravité après le saut
+        vehicleRigidbody.useGravity = true;
+        vehicleRigidbody.velocity = Vector3.zero;
+        vehicleRigidbody.AddForce(Physics.gravity * gravityScale, ForceMode.Acceleration);
+
+        Debug.Log("Jump deactivated");
+    }
+
+
+    
+    
+    private IEnumerator Shield(float duration)
+    {
+        Debug.Log("Shield activated");
+
+        // Créer une sphère visuelle sans collider pour représenter le bouclier
+        GameObject shieldVisual = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        shieldVisual.transform.localScale = new Vector3(4f, 4f, 4f);
+        Renderer shieldRenderer = shieldVisual.GetComponent<Renderer>();
+        Color shieldColor = new Color(0f, 0f, 1f, 0.5f); // Bleu transparent
+        shieldRenderer.material.color = shieldColor;
+
+        // Fixer la position de la sphère visuelle à la voiture
+        shieldVisual.transform.SetParent(Stats.vehicle);
+        shieldVisual.transform.localPosition = Vector3.zero;
+        shieldVisual.transform.localRotation = Quaternion.identity;
+
+        float originalWeight = Stats.weight;
+        Stats.weight /= 2;
+        isShieldActivated = true;
+
+        yield return new WaitForSeconds(duration);
+
+        Destroy(shieldVisual);
+        Stats.weight = originalWeight;
+        isShieldActivated = false;
+
+        Debug.Log("Shield deactivated");
+    }
+
 }

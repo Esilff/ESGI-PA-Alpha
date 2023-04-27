@@ -64,7 +64,7 @@ public class CarController : MonoBehaviour
     {
         input = _input.actions["Movement"].ReadValue<Vector2>();
             isDrifting = _input.actions["Drift"].IsPressed();
-            usingBonus = _input.actions["Boost"].IsPressed();
+            usingBonus = _input.actions["Bonus"].IsPressed();
             speed = input.y switch
             {
                 >0 => Stats.acceleration,

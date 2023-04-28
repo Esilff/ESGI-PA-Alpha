@@ -132,6 +132,13 @@ public class CarController : MonoBehaviour
         }
         else if (other.CompareTag("Projectile"))
         {
+            if (isShieldActivated)
+            {
+                isShieldActivated = false;
+                StopCoroutine(shieldCoroutine);
+                Destroy(other.gameObject);
+                return; 
+            }
             Debug.Log("Hit by projectile hjdhzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
             TakeDamage(100f);
         }
@@ -176,31 +183,31 @@ public class CarController : MonoBehaviour
         shieldCoroutine = StartCoroutine(Shield(duration));
     }
 
-
-    public IEnumerator Jump(float jumpDuration = 1f, float jumpForce = 500f, float gravityScale = 1f)
+public void Jump(float jumpHeight, float jumpDuration)
     {
-        Debug.Log("Jump activated");
+        StartCoroutine(JumpTime(jumpHeight, jumpDuration));
+    }
+    private IEnumerator JumpTime(float jumpHeight, float jumpDuration)
+    {
+        // Désactiver la gravité pour que le véhicule ne tombe pas pendant le saut
+        Stats.vehicle.GetComponent<Rigidbody>().useGravity = false;
 
-        Rigidbody vehicleRigidbody = Stats.vehicle.GetComponent<Rigidbody>();
+        // Calculer la position de saut et la position d'arrivée
+        Vector3 startPos = Stats.vehicle.position;
+        Vector3 jumpPos = startPos + Vector3.up * jumpHeight;
+        Vector3 endPos = startPos;
 
-        // Désactiver la gravité pour simuler un saut
-        vehicleRigidbody.useGravity = false;
-        vehicleRigidbody.velocity = Vector3.zero;
-        vehicleRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
-        float elapsed = 0f;
-        while (elapsed < jumpDuration)
+        // Animer le saut
+        float t = 0;
+        while (t < 1)
         {
-            elapsed += Time.deltaTime;
+            t += Time.deltaTime / jumpDuration;
+            Stats.vehicle.position = Vector3.Lerp(jumpPos, endPos, t);
             yield return null;
         }
 
-        // Réactiver la gravité après le saut
-        vehicleRigidbody.useGravity = true;
-        vehicleRigidbody.velocity = Vector3.zero;
-        vehicleRigidbody.AddForce(Physics.gravity * gravityScale, ForceMode.Acceleration);
-
-        Debug.Log("Jump deactivated");
+        // Réactiver la gravité
+        Stats.vehicle.GetComponent<Rigidbody>().useGravity = true;
     }
 
 
@@ -210,12 +217,16 @@ public class CarController : MonoBehaviour
     {
         Debug.Log("Shield activated");
 
-        // Créer une sphère visuelle sans collider pour représenter le bouclier
+        // Créer une sphère visuelle avec un collider pour représenter le bouclier
         GameObject shieldVisual = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         shieldVisual.transform.localScale = new Vector3(4f, 4f, 4f);
         Renderer shieldRenderer = shieldVisual.GetComponent<Renderer>();
         Color shieldColor = new Color(0f, 0f, 1f, 0.5f); // Bleu transparent
         shieldRenderer.material.color = shieldColor;
+
+        // Ajouter un collider au bouclier visuel
+        SphereCollider shieldCollider = shieldVisual.AddComponent<SphereCollider>();
+        shieldCollider.isTrigger = true;
 
         // Fixer la position de la sphère visuelle à la voiture
         shieldVisual.transform.SetParent(Stats.vehicle);
@@ -234,5 +245,6 @@ public class CarController : MonoBehaviour
 
         Debug.Log("Shield deactivated");
     }
+    
 
 }

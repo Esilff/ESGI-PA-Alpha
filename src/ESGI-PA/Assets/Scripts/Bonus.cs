@@ -22,8 +22,11 @@ public class Bonus
 
     private Action<CarStats>[] bonusList = new Action<CarStats>[]
     {
-        boost,
-        projectile
+        projectile,
+        jump,
+        shield,
+        boost
+
     };
 
     private static void boost(CarStats stats)
@@ -45,6 +48,28 @@ public class Bonus
             GameObject projectile = GameObject.Instantiate(stats.projectilePrefab, stats.vehicle.position, Quaternion.identity);
             Rigidbody projectileRigidbody = projectile.GetComponent<Rigidbody>();
             projectileRigidbody.velocity = stats.vehicle.forward * stats.projectileVelocity;
+        }
+    }
+    
+    private static void jump(CarStats stats)
+    {
+        Debug.Log("I'm a jump bonus");
+        if (stats.vehicle != null)
+        {
+            // Activer le saut
+            float jumpForce = 1000f;
+            stats.vehicle.GetComponent<CarController>().Jump();
+        }
+    }
+
+    private static void shield(CarStats stats)
+    {
+        Debug.Log("I'm a shield bonus");
+        if (stats.vehicle != null)
+        {
+            // Activer le bouclier
+            float shieldDuration = 5f;
+            stats.vehicle.GetComponent<CarController>().ActivateShield(shieldDuration);
         }
     }
 

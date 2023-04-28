@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class RaceLoader : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class RaceLoader : MonoBehaviour
     [SerializeField] private PlayerInputManager manager;
     // Start is called before the first frame update
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private UIManager uiManager;
 
     private int playerJoined;
 
@@ -63,6 +65,7 @@ public class RaceLoader : MonoBehaviour
         /*player.gameObject.GetComponentInChildren<Camera>().rect = new Rect();
         
         Debug.Log("Setting viewport");*/
+        uiManager.Players.Append(player.gameObject);
         if (config.devices.Count == 1)
         {
             player.gameObject.GetComponentInChildren<Camera>().rect = new Rect(0,0,1,1);

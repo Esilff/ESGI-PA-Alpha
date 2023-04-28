@@ -45,9 +45,12 @@ public class Bonus
         Debug.Log("Im a projectile");
         if (stats.projectilePrefab != null)
         {
-            GameObject projectile = GameObject.Instantiate(stats.projectilePrefab, stats.vehicle.position, Quaternion.identity);
-            Rigidbody projectileRigidbody = projectile.GetComponent<Rigidbody>();
-            projectileRigidbody.velocity = stats.vehicle.forward * stats.projectileVelocity;
+            GameObject projectile = GameObject.Instantiate(stats.projectilePrefab,
+                stats.vehicle.position + new Vector3(0, 2, 5), Quaternion.identity);
+            //projeter le projectile
+            projectile.GetComponent<Rigidbody>().AddForce(stats.vehicle.forward * 1000f);
+            
+
         }
     }
     
@@ -58,7 +61,7 @@ public class Bonus
         {
             // Activer le saut
             float jumpForce = 1000f;
-            stats.vehicle.GetComponent<CarController>().Jump();
+            stats.vehicle.GetComponent<CarController>().Jump(100f, 0.1f);
         }
     }
 

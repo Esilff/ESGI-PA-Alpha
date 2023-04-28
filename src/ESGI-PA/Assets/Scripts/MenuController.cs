@@ -50,7 +50,7 @@ public class MenuController : MonoBehaviour
       public void RestartGame()
     {
 		Debug.Log("Restart");
-        SceneManager.LoadScene("CircuitTest");
+        SceneManager.LoadScene("Menuprincipal");
     }
 
     public void QuitGame()

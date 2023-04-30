@@ -47,4 +47,9 @@ public class CameraBehavior : MonoBehaviour
         else
             camera.position = position;
     }
+
+    private void FreeCamera()
+    {
+        
+    }
 }

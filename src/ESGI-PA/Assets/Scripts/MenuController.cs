@@ -20,6 +20,7 @@ public class MenuController : MonoBehaviour
 		{
 			image.color = Color.gray;
 		}
+		if (Time.timeScale == 0) Time.timeScale = 1;
 	}
 
 	public void ToMainMenu()
@@ -50,7 +51,7 @@ public class MenuController : MonoBehaviour
       public void RestartGame()
     {
 		Debug.Log("Restart");
-        SceneManager.LoadScene("Menuprincipal");
+        SceneManager.LoadScene("CircuitTest");
     }
 
     public void QuitGame()

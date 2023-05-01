@@ -51,8 +51,19 @@ public class MenuController : MonoBehaviour
       public void RestartGame()
     {
 		Debug.Log("Restart");
-        SceneManager.LoadScene("CircuitTest");
+		SceneManager.LoadScene("CircuitTest");
     }
+
+      public void StartGame()
+      {
+	      foreach (var playerImage in playerImages)
+	      {
+		      if (playerImage.color == Color.white || playerImage.color == new Color(0.8f, 0.8f, 0.8f, 1.0f))
+		      {
+			      SceneManager.LoadScene("CircuitTest");
+		      }
+	      }
+      }
 
     public void QuitGame()
     {

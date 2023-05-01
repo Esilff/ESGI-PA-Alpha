@@ -20,9 +20,11 @@ public class gameloop : MonoBehaviour
         checkpoints[0].SetActive(true);
         currentCheckpoint = checkpoints[0];
         nextCheckpoint = checkpoints[1];
+        checkpoints[checkpoints.Count - 1].GetComponent<checkpoint>().IsLast = true;
     }
     void Update()
     {
+        if (currentCheckpoint != checkpoints[0]) checkpoints[0].GetComponent<checkpoint>().IsLast = true;
         if (isFinished) return;
         if (currentCheckpoint.GetComponent<checkpoint>().passed == true && currentCheckpoint != checkpoints[checkpoints.Count - 1])
         {

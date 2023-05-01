@@ -19,7 +19,7 @@ public struct CarStats
     public float projectileCooldown; 
     public string[] bonus; 
     public Transform vehicle;
-
+    public int turn;
 }
 
 public class CarController : MonoBehaviour
@@ -58,6 +58,7 @@ public class CarController : MonoBehaviour
     {
         CameraBehavior.inCar = true;
         currentHealth = maxHealth;
+        Stats.turn = 0;
         //healthBar.maxValue = maxHealth;
         //healthBar.value = currentHealth;
     }
@@ -245,6 +246,13 @@ public void Jump(float jumpHeight, float jumpDuration)
 
         Debug.Log("Shield deactivated");
     }
-    
 
+    public int Turn
+    {
+        get => Stats.turn;
+        set
+        {
+            Stats.turn = value;
+        }
+    }
 }

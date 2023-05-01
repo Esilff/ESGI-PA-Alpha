@@ -43,7 +43,7 @@ public class InputEditor : MonoBehaviour
         bindingValues.Add(input.actions["Bonus"].controls[0].name);
         bindingValues.Add(input.actions["Drift"].controls[0].name);
         input.SwitchCurrentActionMap("Character");
-        bindingValues.Add(input.actions["Jump"].controls[0].name);
+        //bindingValues.Add(input.actions["Jump"].controls[0].name);
         for (var i = 0; i < bindingValues.Count; i++)
         {
             textLabels[i].text = bindingValues[i];

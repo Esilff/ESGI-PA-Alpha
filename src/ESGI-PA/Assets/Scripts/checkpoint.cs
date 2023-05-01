@@ -6,6 +6,7 @@ public class checkpoint : MonoBehaviour
 {
     public bool passed = false;
     public GameObject player;
+    public bool lastCheckpoint = false;
 
     public void Start()
     {
@@ -15,6 +16,11 @@ public class checkpoint : MonoBehaviour
     {
         passed = true;
         Debug.Log("Checkpoint passed");
+        if (lastCheckpoint)
+        {
+            other.gameObject.GetComponent<CarController>().Turn++;
+            lastCheckpoint = false;
+        }
     }
     public void ResetCheckpoint()
     {
@@ -23,6 +29,12 @@ public class checkpoint : MonoBehaviour
     public bool IsPassed()
     {
         return passed;
+    }
+
+    public bool IsLast
+    {
+        get => lastCheckpoint;
+        set => lastCheckpoint = value;
     }
 }
 

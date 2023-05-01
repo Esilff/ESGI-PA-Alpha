@@ -57,7 +57,7 @@
                 {
                     "name": "up",
                     "id": "5f23d704-2abd-40e8-a181-98b9efe4bac4",
-                    "path": "/Keyboard/r",
+                    "path": "/Mouse/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -68,7 +68,7 @@
                 {
                     "name": "down",
                     "id": "6ade7f8c-0ac0-4206-9578-59bdb40d9f4e",
-                    "path": "/Keyboard/f",
+                    "path": "/Keyboard/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -79,7 +79,7 @@
                 {
                     "name": "left",
                     "id": "8f9023fd-8ea6-43bf-a52e-98a5be510715",
-                    "path": "/Keyboard/g",
+                    "path": "/Keyboard/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -90,7 +90,7 @@
                 {
                     "name": "right",
                     "id": "5fac4c02-fcd5-4abd-91a9-db7a1be5cad2",
-                    "path": "/Keyboard/h",
+                    "path": "/Keyboard/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -156,7 +156,7 @@
                 {
                     "name": "",
                     "id": "327ccecb-e03a-488b-842c-74463a81eec7",
-                    "path": "<Keyboard>/minus",
+                    "path": "/Keyboard/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -178,7 +178,7 @@
                 {
                     "name": "",
                     "id": "acd18829-8445-484e-b2f9-0a80927da35e",
-                    "path": "<Keyboard>/a",
+                    "path": "/Keyboard/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -286,7 +286,7 @@
                 {
                     "name": "up",
                     "id": "a10e078d-9d3b-4145-a7fd-cf35bebae443",
-                    "path": "/Keyboard/r",
+                    "path": "/Mouse/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -385,7 +385,7 @@
                 {
                     "name": "",
                     "id": "2e6dda44-cb9f-4458-abc9-b889038012c9",
-                    "path": "/Mouse/leftButton",
+                    "path": "/Keyboard/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -407,7 +407,7 @@
                 {
                     "name": "",
                     "id": "d7717f8d-3d04-4f84-9956-92a5a16592dd",
-                    "path": "/Keyboard/j",
+                    "path": "/Keyboard/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -429,7 +429,7 @@
                 {
                     "name": "",
                     "id": "90c7caff-df51-4542-b2db-878806a33126",
-                    "path": "/Keyboard/k",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -462,7 +462,7 @@
                 {
                     "name": "up",
                     "id": "2a13d024-2852-4a0f-bdc7-8f4207ffa540",
-                    "path": "<Keyboard>/z",
+                    "path": "<Mouse>/delta/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -473,7 +473,7 @@
                 {
                     "name": "down",
                     "id": "62fe66e6-d6f8-45a5-a55f-c3e7c7016629",
-                    "path": "<Keyboard>/s",
+                    "path": "<Mouse>/delta/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -484,7 +484,7 @@
                 {
                     "name": "left",
                     "id": "c76a149a-dfd0-4ef3-8185-b8d85acba5bf",
-                    "path": "<Keyboard>/q",
+                    "path": "<Mouse>/delta/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",
@@ -495,7 +495,7 @@
                 {
                     "name": "right",
                     "id": "1def0221-5287-40de-9ded-10b0738bd547",
-                    "path": "<Keyboard>/d",
+                    "path": "<Mouse>/delta/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard",

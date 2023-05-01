@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,11 @@ public class GameLoop : MonoBehaviour
     private bool hasStarted = false;
 
     private List<GameObject> players;
+
+    public List<GameObject> PlayersRank
+    {
+        get => players;
+    }
     void Start()
     {
         StartCoroutine(GetPlayers());
@@ -42,6 +48,12 @@ public class GameLoop : MonoBehaviour
 
     void Update()
     {
+        if (players != null)
+        {
+            players.Sort(((o, o1) => (PlacementScore(o) > PlacementScore(o1)) ? -1 : 
+                (PlacementScore(o) < PlacementScore(o1)) ? 1 : 0));
+            Debug.Log("Test");
+        }
         if (CheckEndgame())
         {
             Debug.Log("GAME HAS ENDED");
@@ -72,5 +84,14 @@ public class GameLoop : MonoBehaviour
             }
         }
         return true;
+    }
+
+    private int PlacementScore(GameObject player)
+    {
+        int nextCheckpoint = playersInfo[player].currentCheckpoint + 1;
+        Transform nextCheckpointPos =
+            Checkpoints[(nextCheckpoint > Checkpoints.Count) ? 0 : nextCheckpoint].gameObject.transform;
+        int distance = (int)(Mathf.Abs(nextCheckpointPos.position.x - player.transform.position.x) + Mathf.Abs(nextCheckpointPos.position.y - player.transform.position.y));
+        return 100 + (playersInfo[player].turnCount * 1000) - distance;
     }
 }

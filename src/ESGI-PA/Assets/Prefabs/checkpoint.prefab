@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8597338706122041306}
   - component: {fileID: 8597338706122041309}
   - component: {fileID: 8597338706122041308}
-  - component: {fileID: 8597338706122041311}
+  - component: {fileID: 3237298626424893294}
   m_Layer: 0
   m_Name: checkpoint
   m_TagString: Untagged
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
---- !u!114 &8597338706122041311
+--- !u!114 &3237298626424893294
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,8 +121,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8597338706122041310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a96f934fade5bc446835cec13ba7e736, type: 3}
+  m_Script: {fileID: 11500000, guid: 09cb4925290dafc45a671dbf1fca1d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passed: 0
-  player: {fileID: 0}

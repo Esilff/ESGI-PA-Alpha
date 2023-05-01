@@ -1,41 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class checkpoint : MonoBehaviour
+public class Checkpoint : MonoBehaviour
 {
-    public bool passed = false;
-    public GameObject player;
-    public bool lastCheckpoint = false;
+    // Start is called before the first frame update
 
-    public void Start()
+    private GameLoop loop;
+
+    public GameLoop Loop
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        get => loop;
+        set => loop = value;
     }
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        passed = true;
-        Debug.Log("Checkpoint passed");
-        if (lastCheckpoint)
+        if (other.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<CarController>().Turn++;
-            lastCheckpoint = false;
+            
+            int checkpointIndex = Loop.Checkpoints.IndexOf(gameObject.GetComponent<Checkpoint>());
+            var info = Loop.PlayerInfo[other.gameObject];
+            info.lastCheckpoint = info.currentCheckpoint;
+            info.currentCheckpoint = checkpointIndex;
+            if ((checkpointIndex == 0 && info.lastCheckpoint > Loop.Checkpoints.Count * 0.8f) || (info.lastCheckpoint > Loop.Checkpoints.Count / 2 && checkpointIndex > 0))
+            {
+                info.turnCount++;
+            }
+            Loop.PlayerInfo[other.gameObject] = info;
+            Debug.Log(info.lastCheckpoint + ";" + checkpointIndex + ":" + info.turnCount);
         }
     }
-    public void ResetCheckpoint()
-    {
-        passed = false;
-    }
-    public bool IsPassed()
-    {
-        return passed;
-    }
-
-    public bool IsLast
-    {
-        get => lastCheckpoint;
-        set => lastCheckpoint = value;
-    }
 }
-
-

@@ -13,7 +13,7 @@ public class RaceLoader : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private UIManager uiManager;
-
+    
     private int playerJoined;
 
     private Rect[] viewportDuo =

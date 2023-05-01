@@ -430,17 +430,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2f80ed4f8c6f24f9c1fded530cea3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carOffset: {x: 0, y: 1, z: 0}
-  camSpeed: 10
-  camOffset: {x: 0, y: 5, z: -10}
-  controller: {fileID: 1294174406}
-  accelerationForce: 1
-  gravity: 10
-  maxSpeed: 100
-  frictionForce: 0.4
-  rotForce: 100
-  rotationLerp: 15
-  normalAngle: {x: 0, y: 0, z: 0}
 --- !u!143 &1294174406
 CharacterController:
   m_ObjectHideFlags: 0
@@ -667,7 +656,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2024400435}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 68.8, y: -20, z: 0}
+  m_LocalPosition: {x: 68.8, y: -20, z: -37.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -685,19 +674,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2024400435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf5950f521178114aa7375782f2c723b, type: 3}
+  m_Script: {fileID: 11500000, guid: 572f76ecdea6b85479c5941d86bd97a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 2024400438}
   cam: {fileID: 852199005}
-  cameraOffset: 10
-  sensi: 10
-  rotateSensi: 10
+  cameraOffset: 0
+  sensi: 0
+  rotateSensi: 0
   rotation: {x: 0, y: 0}
   controller: {fileID: 2024400439}
-  speed: 10
-  gravityForce: 1
-  jumpForce: 0.8
+  speed: 0
+  gravityForce: 0
+  jumpForce: 0
   car: {fileID: 0}
 --- !u!114 &2024400438
 MonoBehaviour:
@@ -711,7 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: baaffa18cae6c9042b6d2907d5e0892d, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: f14c35d8ea922d644a4825b9e739fa87, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -754,7 +743,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4324593360229857685}
-  m_Mesh: {fileID: 4300000, guid: 7b9e6d3884f821f45b2d8e4006ab4dd5, type: 2}
+  m_Mesh: {fileID: -462981019419857548, guid: 7ca17aff5bad20645a4ca8a49dfd7ed5, type: 3}
 --- !u!23 &2811643439193315392
 MeshRenderer:
   m_ObjectHideFlags: 0

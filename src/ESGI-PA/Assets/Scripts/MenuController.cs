@@ -7,10 +7,13 @@ using UnityEngine.UIElements;
 public class MenuController : MonoBehaviour
 {
 	public RectTransform mainMenu;
+	public RectTransform mapSelectMenu;
 	public RectTransform gameConfigMenu;
 	public RectTransform optionsMenu;
 	public RawImage[] playerImages;
+	public RawImage[] mapImages;
 
+	[SerializeField] string map;
 	public bool canEditPlayers;
 	
 	private void Start()
@@ -26,6 +29,7 @@ public class MenuController : MonoBehaviour
 	public void ToMainMenu()
 	{
 		canEditPlayers = false;
+		mapSelectMenu.gameObject.SetActive(false);
 		gameConfigMenu.gameObject.SetActive(false);
 		mainMenu.gameObject.SetActive(true);
 	}
@@ -41,17 +45,29 @@ public class MenuController : MonoBehaviour
 		optionsMenu.gameObject.SetActive(false);
 		mainMenu.gameObject.SetActive(true);
 	}
+
+	public void ShowMaps()
+	{
+		mainMenu.gameObject.SetActive(false);
+		mapSelectMenu.gameObject.SetActive(true);
+	}
+
 	public void PrepareGame()
 	{
 		canEditPlayers = true;
-		mainMenu.gameObject.SetActive(false);
+		mapSelectMenu.gameObject.SetActive(false);
 		gameConfigMenu.gameObject.SetActive(true);
 	}
 	
-      public void RestartGame()
+	public void ChoseMap(string m)
+    {
+		map = m;
+    }
+
+    public void RestartGame()
     {
 		Debug.Log("Restart");
-		SceneManager.LoadScene("CircuitTest");
+		SceneManager.LoadScene(map);
     }
 
       public void StartGame()
@@ -60,7 +76,7 @@ public class MenuController : MonoBehaviour
 	      {
 		      if (playerImage.color == Color.white || playerImage.color == new Color(0.8f, 0.8f, 0.8f, 1.0f))
 		      {
-			      SceneManager.LoadScene("CircuitTest");
+			    RestartGame();
 		      }
 	      }
       }

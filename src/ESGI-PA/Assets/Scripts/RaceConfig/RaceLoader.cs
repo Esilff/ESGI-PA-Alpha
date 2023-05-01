@@ -10,7 +10,6 @@ public class RaceLoader : MonoBehaviour
     [SerializeField] private RaceConfig config;
 
     [SerializeField] private PlayerInputManager manager;
-    // Start is called before the first frame update
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private UIManager uiManager;
     
@@ -27,7 +26,6 @@ public class RaceLoader : MonoBehaviour
         playerJoined = 0;
         manager.playerPrefab = playerPrefab;
         if (config.devices.Count <= 1) manager.splitScreen = false;
-        //manager.splitScreen = true;
         for (var i = 0; i < config.devices.Count; i++)
         {
             
@@ -40,31 +38,12 @@ public class RaceLoader : MonoBehaviour
             {
                 manager.JoinPlayer(i, i, "keyboard", config.devices[i]);
             }
-            
-            //Debug.Log("Player joining");
-        }
 
-        // manager.splitScreen = true;
-        /*for (var i = 0; i < config.devices.Count(); i++)
-        {
-            manager.JoinPlayer(i, i, "default", config.devices[i]);
-        }*/
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        for (var i = 0; i < config.devices.Count; i++)
-        {
-            //Debug.Log("Device " + i + " : " + config.devices[i]);
         }
     }
 
     public void setViewport(PlayerInput player)
     {
-        /*player.gameObject.GetComponentInChildren<Camera>().rect = new Rect();
-        
-        Debug.Log("Setting viewport");*/
         uiManager.Players.Append(player.gameObject);
         if (config.devices.Count == 1)
         {

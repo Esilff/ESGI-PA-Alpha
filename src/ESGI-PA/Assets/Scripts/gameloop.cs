@@ -11,7 +11,6 @@ public struct PlayerState
 
 public class GameLoop : MonoBehaviour
 {
-    //Should contain a list of checkpoint, checkpoint 0 will determine the time when a user win a turn
     [SerializeField] private List<Checkpoint> checkpoints;
     private GameObject testIndex;
     public List<Checkpoint> Checkpoints
@@ -30,12 +29,10 @@ public class GameLoop : MonoBehaviour
     public int maxTurn = 2;
 
     private bool hasStarted = false;
-    // Start is called before the first frame update
 
     private List<GameObject> players;
     void Start()
     {
-        // checkpoints = new();
         StartCoroutine(GetPlayers());
         foreach (var checkpoint in checkpoints)
         {
@@ -43,10 +40,8 @@ public class GameLoop : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Infos : " + playersInfo[testIndex].turnCount + ":" + playersInfo[testIndex].currentCheckpoint);
         if (CheckEndgame())
         {
             Debug.Log("GAME HAS ENDED");
@@ -59,18 +54,16 @@ public class GameLoop : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         GameObject[] objects =  GameObject.FindGameObjectsWithTag("Player");
         players = new List<GameObject>(objects);
-        testIndex = objects[0];
         foreach (var o in objects)
         {
             playersInfo.Add(o, new PlayerState());
         }
-        Debug.Log(playersInfo.Count);
         hasStarted = true;
-
     }
 
     private bool CheckEndgame()
     {
+        if (!hasStarted) return false;
         foreach (var player in players)
         {
             if (playersInfo[player].turnCount < 2)

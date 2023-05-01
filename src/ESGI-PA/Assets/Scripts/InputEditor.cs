@@ -6,7 +6,6 @@ using UnityEngine.InputSystem.Utilities;
 
 public class InputEditor : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] private PlayerInput input;
     [SerializeField] private GameObject[] inputLabels;
     private List<TextMeshProUGUI> textLabels = new ();
@@ -34,16 +33,14 @@ public class InputEditor : MonoBehaviour
     private void UpdateBindings()
     {
         bindingValues.Clear();
-        //input.SwitchCurrentControlScheme("keyboard");
         for (var i = 0; i < input.actions["Movement"].controls.Count; i++)
         {
             bindingValues.Add(input.actions["Movement"].controls[i].name);
         }
-        // Debug.Log(input.actions["Bonus"].controls[0].name);
         bindingValues.Add(input.actions["Bonus"].controls[0].name);
         bindingValues.Add(input.actions["Drift"].controls[0].name);
         input.SwitchCurrentActionMap("Character");
-        //bindingValues.Add(input.actions["Jump"].controls[0].name);
+        bindingValues.Add(input.actions["Jump"].controls[0].name);
         for (var i = 0; i < bindingValues.Count; i++)
         {
             textLabels[i].text = bindingValues[i];

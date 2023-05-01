@@ -19,7 +19,7 @@ public class Checkpoint : MonoBehaviour
         var info = Loop.PlayerInfo[other.gameObject];
         info.lastCheckpoint = info.currentCheckpoint;
         info.currentCheckpoint = checkpointIndex;
-        if ((checkpointIndex == 0 && info.lastCheckpoint > Loop.Checkpoints.Count * 0.8f) || (info.lastCheckpoint > Loop.Checkpoints.Count / 2 && checkpointIndex > 0))
+        if ((checkpointIndex == 0 && info.lastCheckpoint > Loop.Checkpoints.Count * 0.5f) || (info.lastCheckpoint > Loop.Checkpoints.Count / 2 && checkpointIndex > 0))
         {
             info.turnCount++;
         }

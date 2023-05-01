@@ -36,13 +36,21 @@ public class PMovement : MonoBehaviour
         rotation += sensi * Time.deltaTime * look;
 
         rotation.y = rotation.y > Mathf.PI * 0.9f ? Mathf.PI * 0.9f : rotation.y < Mathf.PI * 0.1f ? Mathf.PI * 0.1f : rotation.y;
-        
-        Vector3 cameraposition = transform.position + 
-                                 new Vector3(Mathf.Sin(rotation.x) * cameraOffset * Mathf.Sin(rotation.y), 
-                                     Mathf.Cos(rotation.y) * cameraOffset, 
-                                     Mathf.Cos(rotation.x) * cameraOffset * Mathf.Sin(rotation.y));
 
-        cam.transform.position = cameraposition;
+        Vector3 camOffset = new Vector3(Mathf.Sin(rotation.x) * cameraOffset * Mathf.Sin(rotation.y),
+            Mathf.Cos(rotation.y) * cameraOffset,
+            Mathf.Cos(rotation.x) * cameraOffset * Mathf.Sin(rotation.y));
+        Vector3 cameraposition = transform.position + camOffset;
+        
+        if (Physics.Raycast(transform.position, cameraposition - transform.position, out RaycastHit hit, camOffset.magnitude))
+        {
+            cam.transform.position = Vector3.Lerp(transform.position, hit.point, 0.9f);
+        }
+        else
+        {
+            cam.transform.position = cameraposition;
+        }
+
         cam.transform.rotation = Quaternion.LookRotation(transform.position - cameraposition);
 
         if (playerInput.actions["Jump"].triggered && controller.isGrounded)
